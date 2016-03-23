@@ -22,19 +22,20 @@ function main() {
     
     // Exercise #1-a
     // Create an 'instance' of the BankAccount class
-    
+    var dansAccount = new BankAccount();
     
     // Exercise #1-b
     // Deposit 20 dollars into your bank account
-    
+    dansAccount.depositFunds(20);
     
     // Exercise #1-c
     // Withdrawl 15 dollars into your bank account
-    
+    dansAccount.withdrawalFunds(15);
     
     // Exercise #1-d
     // Display you current balance on the screen
-    
+    var currentBalance = dansAccount.getBalance();
+    outputLine('Balance = $' + currentBalance);
     
     
     // Exercise #2-a
@@ -46,19 +47,55 @@ function main() {
     // Exercise #2-c
     // Give the battleship class a methods that returns to current coordinates in this format: 'Coords = [y]|[x]'
     
+    var Battleship = function() {
+        
+        this._x = 0;
+        this._y = 0;
+        
+        this.moveUp = function() {
+            this._y++;
+        }
+        
+        this.moveBack = function() {
+            this._y--;
+        }
+        
+        this.moveRight = function() {
+            this._x++;
+        }
+        
+        this.moveLeft = function() {
+            this._x--;
+        }
+        
+        this.getCoords = function() {
+            return 'Coords = ' + this._y + '|' + this._x;
+        }
+        
+        return this;
+    }
     
     
     // Exercise #3-a
     // Create an 'instance' of your battleship
-    
+    var hmasDan = new Battleship();
     
     // Exercise #3-b
     // Move it to 'Coords = 2|3' and display your coordinates
-    
+    hmasDan.moveUp();
+    hmasDan.moveUp();
+    hmasDan.moveRight();
+    hmasDan.moveRight();
+    hmasDan.moveRight();
+    outputLine(hmasDan.getCoords());
     
     // Exercise #3-c
     // Move it to 'Coords = -1|2' and display your coordinates
-    
+    hmasDan.moveBack();
+    hmasDan.moveBack();
+    hmasDan.moveBack();
+    hmasDan.moveLeft();
+    outputLine(hmasDan.getCoords());
         
 }
 
