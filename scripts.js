@@ -3,18 +3,18 @@ function main() {
     
     var BankAccount = function() {
         
-        this._funds = 0;
+        var _funds = 0;
         
         this.depositFunds = function(amount) {
-            this._funds += amount;
+            _funds += amount;
         }
         
         this.withdrawalFunds = function(amount) {
-            this._funds -= amount;
+            _funds -= amount;
         }
         
         this.getBalance = function() {
-            return this._funds;
+            return _funds;
         }
         
         return this;
@@ -49,27 +49,27 @@ function main() {
     
     var Battleship = function() {
         
-        this._x = 0;
-        this._y = 0;
+        var _x = 0;
+        var _y = 0;
         
         this.moveUp = function() {
-            this._y++;
+            _y++;
         }
         
         this.moveBack = function() {
-            this._y--;
+            _y--;
         }
         
         this.moveRight = function() {
-            this._x++;
+            _x++;
         }
         
         this.moveLeft = function() {
-            this._x--;
+            _x--;
         }
         
         this.getCoords = function() {
-            return 'Coords = ' + this._y + '|' + this._x;
+            return 'Coords = ' + _y + '|' + _x;
         }
         
         return this;
