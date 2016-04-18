@@ -166,9 +166,11 @@ function main() {
             if (attackSuccess) {
                 _onProgress('Bang! ship 1 successfully attacked ship 2!');
                 _ship2DamageCnt++;
+                moveShip(_ship1);
             } else {
                 _onProgress('Crash! ship 2 deflected an attack from Ship 1!');
                 _ship1DamageCnt++;
+                moveShip(_ship2);
             }
         }
         
@@ -178,9 +180,11 @@ function main() {
             if (attackSuccess) {
                 _onProgress('Doof! ship 2 successfully attacked ship 1!');
                 _ship1DamageCnt++;
+                moveShip(_ship2);
             } else {
                 _onProgress('Pop! ship 1 deflected an attack from Ship 2!');
                 _ship2DamageCnt++;
+                moveShip(_ship1);
             }
         }
 
