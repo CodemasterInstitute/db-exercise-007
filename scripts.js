@@ -32,23 +32,24 @@ function main() {
     
     // Exercise #1-a
     // Create an 'instance' of the BankAccount class and provide it with a name
-
+    var dansAccount = new BankAccount('Dans Savings Acc.');
     
     // Exercise #1-b
     // Display the name of your account
-
+    outputLine('Account name: ' + dansAccount.accountName);
 
     // Exercise #1-c
     // Deposit 20 dollars into your bank account
-
+    dansAccount.depositFunds(20);
     
     // Exercise #1-d
     // Withdrawl 15 dollars into your bank account
-
+    dansAccount.withdrawalFunds(15);
     
     // Exercise #1-e
     // Display you current balance on the screen
-
+    var currentBalance = dansAccount.getBalance();
+    outputLine('Balance = $' + currentBalance);
     
 
     // INTERMEDIATE level
@@ -62,22 +63,60 @@ function main() {
 
     // Exercise #2-c
     // Give the battleship class a public methods that returns to current coordinates in this format: 'Coords = [y]|[x]'
+    
+    var Battleship = function(name) {
 
+        this.name = name;
+        
+        this.xCoord = 0;
+        this.yCoord = 0;
+        
+        this.moveUp = function() {
+            this.yCoord++;
+        }
+        
+        this.moveBack = function() {
+            this.yCoord--;
+        }
+        
+        this.moveRight = function() {
+            this.xCoord++;
+        }
+        
+        this.moveLeft = function() {
+            this.xCoord--;
+        }
+        
+        this.getCoords = function() {
+            return 'Coords = ' + this.yCoord + '|' + this.xCoord;
+        }
+        
+        return this;
+    }
     
     
     // Exercise #3-a
     // Create an 'instance' of your battleship
-
+    var hmasDan = new Battleship();
     
 
     // Exercise #3-b
     // Move it to 'Coords = 2|3' and display your coordinates
-
+    hmasDan.moveUp();
+    hmasDan.moveUp();
+    hmasDan.moveRight();
+    hmasDan.moveRight();
+    hmasDan.moveRight();
+    outputLine(hmasDan.getCoords());
     
 
     // Exercise #3-c
     // Move it to 'Coords = -1|2' and display your coordinates
-
+    hmasDan.moveBack();
+    hmasDan.moveBack();
+    hmasDan.moveBack();
+    hmasDan.moveLeft();
+    outputLine(hmasDan.getCoords());
 
 
     // EXPERT level
@@ -152,23 +191,25 @@ function main() {
         
         var moveShip1 = function() {
             moveShip(_ship1);
-            _onProgress('Ship 1 moved to ' + _ship1.getCoords());
+            _onProgress(_ship1.name + ' moved to ' + _ship1.getCoords());
         }
         
         var moveShip2 = function() {
             moveShip(_ship2);
-            _onProgress('Ship 2 moved to ' + _ship2.getCoords());
+            _onProgress(_ship2.name + ' moved to ' + _ship2.getCoords());
         }
         
         var ship1Attacks = function() {
             var attackSuccess = executeAttack(_ship1DamageCnt, _ship2DamageCnt);
 
             if (attackSuccess) {
-                _onProgress('Bang! ship 1 successfully attacked ship 2!');
+                _onProgress('Bang! ' + _ship1.name + ' successfully attacked ' + _ship2.name + '!');
                 _ship2DamageCnt++;
+                moveShip(_ship1);
             } else {
-                _onProgress('Crash! ship 2 deflected an attack from Ship 1!');
+                _onProgress('Crash! ' + _ship2.name + ' deflected an attack from ' + _ship1.name + '!');
                 _ship1DamageCnt++;
+                moveShip(_ship2);
             }
         }
         
@@ -176,11 +217,13 @@ function main() {
             var attackSuccess = executeAttack(_ship2DamageCnt, _ship1DamageCnt);
 
             if (attackSuccess) {
-                _onProgress('Doof! ship 2 successfully attacked ship 1!');
+                _onProgress('Doof! ' + _ship2.name + ' successfully attacked ' + _ship1.name + '!');
                 _ship1DamageCnt++;
+                moveShip(_ship2);
             } else {
-                _onProgress('Pop! ship 1 deflected an attack from Ship 2!');
+                _onProgress('Pop! ' + _ship1.name + ' deflected an attack from ' + _ship2.name + '!');
                 _ship2DamageCnt++;
+                moveShip(_ship1);
             }
         }
 
@@ -203,11 +246,33 @@ function main() {
 
             // finally, compare both ships damage with the _damageLimit and end the game if any have reached this limit
 
+            var moveCnt = 0
+            while (!_gameOver) {
+
+                if (moveCnt % 2) {
+                    moveShip2();
+                    if (doPositionsOverlap()) {
+                        ship2Attacks();
+                    }
+                } else {
+                    moveShip1();
+                    if (doPositionsOverlap()) {
+                        ship1Attacks();
+                    }
+                }
+
+                moveCnt++
+
+                if (_ship1DamageCnt === _damageLimit || _ship2DamageCnt === _damageLimit) {
+                    _gameOver = true;
+                }
+            }
+
 
             if (_ship1DamageCnt === _damageLimit) {
-                _onProgress('Ship 1 sunk!!!');
+                _onProgress(_ship1.name + ' sunk!!!');
             } else if (_ship2DamageCnt === _damageLimit) {
-                _onProgress('Ship 2 sunk!!!');
+                _onProgress(_ship2.name + ' sunk!!!');
             }
 
         }
@@ -219,11 +284,23 @@ function main() {
     // Exercise 4
     // Complete the logic in side the BattleshipEncounter class named 'battle', then create the battleships, the encounter and then initiate the battle
 
+    var alliedShip = new Battleship("British Ship");
+    var axisShip = new Battleship("Italian Ship");
+
+    var encounter = new BattleshipEncounter(alliedShip, axisShip, outputLine, 3, 2);
+    
+    encounter.battle();
 
 
     // Exercise 5
     // Now we want to get the ships their own name. Modify the Battleship class to accept a name and modify the BattleshipEncounter class to only refer to the ships by their name
 
+    var alliedShip = new Battleship("US Ship");
+    var axisShip = new Battleship("German Ship");
+
+    var encounter = new BattleshipEncounter(alliedShip, axisShip, outputLine, 3, 2);
+    
+    encounter.battle();
 
     
 
