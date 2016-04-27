@@ -167,7 +167,7 @@ function main() {
             }
         }
 
-        var executeAttack = function () {
+        var attemptAttack = function () {
             // get a random number between 1 and 3
             var bias = Math.floor(Math.random() * 3) + 1;
 
@@ -200,7 +200,7 @@ function main() {
         }
         
         var ship1Attacks = function() {
-            var attackSuccess = executeAttack(_ship1DamageCnt, _ship2DamageCnt);
+            var attackSuccess = attemptAttack();
 
             if (attackSuccess) {
                 _onProgress('Bang! ' + _ship1.name + ' successfully attacked ' + _ship2.name + '!');
@@ -214,7 +214,7 @@ function main() {
         }
         
         var ship2Attacks = function() {
-            var attackSuccess = executeAttack(_ship2DamageCnt, _ship1DamageCnt);
+            var attackSuccess = attemptAttack();
 
             if (attackSuccess) {
                 _onProgress('Doof! ' + _ship2.name + ' successfully attacked ' + _ship1.name + '!');
